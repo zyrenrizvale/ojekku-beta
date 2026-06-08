@@ -36,13 +36,13 @@ jobs:
           echo "VERSION_NAME=1.0.${{ github.run_number }}" >> $GITHUB_ENV
 
       - name: Rakit APK
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleDebug
 
       - name: Kirim ke Telegram
         run: |
           NAMA_FILE="Ojekku_v${{ env.VERSION_NAME }}_b${{ env.VERSION_CODE }}.apk"
-          # Pastikan path ini sesuai dengan struktur folder output gradle Anda
-          cp app/build/outputs/apk/release/app-release.apk "$NAMA_FILE"
+          # Karena belum ada keystore (signing), kita gunakan versi debug sementara
+          cp app/build/outputs/apk/debug/app-debug.apk "$NAMA_FILE"
           
           PESAN="🚀 *UPDATE OJEKKU TERSEDIA!* 🚀%0A%0A*Versi:* ${{ env.VERSION_NAME }} (Build ${{ env.VERSION_CODE }})%0A*Apa yang baru:*%0A${{ github.event.inputs.changelog }}"
           
