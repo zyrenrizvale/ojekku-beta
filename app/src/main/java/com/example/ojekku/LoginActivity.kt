@@ -8,11 +8,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+import android.view.animation.AnimationUtils
+import android.widget.LinearLayout
+
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val cardLogin = findViewById<LinearLayout>(R.id.cardLogin)
+        val animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
+        cardLogin.startAnimation(animSlideUp)
 
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)

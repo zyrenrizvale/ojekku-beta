@@ -8,7 +8,7 @@
         android:label="Ojekku"
         android:roundIcon="@android:drawable/ic_menu_myplaces"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.Ojekku">
         
         <activity
             android:name=".LoginActivity"

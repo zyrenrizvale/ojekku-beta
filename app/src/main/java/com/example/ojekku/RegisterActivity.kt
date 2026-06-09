@@ -8,11 +8,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+import android.view.animation.AnimationUtils
+import android.widget.LinearLayout
+
 class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        val cardRegister = findViewById<LinearLayout>(R.id.cardRegister)
+        val animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
+        cardRegister.startAnimation(animSlideUp)
 
         val etName = findViewById<EditText>(R.id.etName)
         val etEmail = findViewById<EditText>(R.id.etEmail)
