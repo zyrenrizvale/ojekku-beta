@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@android:drawable/ic_menu_myplaces"
-        android:label="Ojekku"
+        android:label="OjekKuy!"
         android:roundIcon="@android:drawable/ic_menu_myplaces"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ojekku">
