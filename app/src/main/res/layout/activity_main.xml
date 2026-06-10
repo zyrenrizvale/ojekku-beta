@@ -297,7 +297,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <!-- Floating Dark Navbar -->
+    <!-- Floating White Navbar (Capsule) -->
     <LinearLayout
         android:id="@+id/navBar"
         android:layout_width="match_parent"
@@ -305,9 +305,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/bg_pill_dark"
+        android:background="@drawable/bg_pill_white"
         android:orientation="horizontal"
-        android:weightSum="4"
+        android:weightSum="3"
         android:elevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -326,7 +326,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/bg_pill_active"
+                android:background="@drawable/bg_pill_active_light"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
                 android:paddingStart="16dp"
@@ -335,13 +335,13 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/ic_menu_compass"
-                    android:tint="#60A5FA" />
+                    android:tint="#0056D2" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chats"
+                    android:text="Home"
                     android:textSize="10sp"
-                    android:textColor="#60A5FA"
+                    android:textColor="#0056D2"
                     android:fontFamily="@font/outfit_bold" />
             </LinearLayout>
         </LinearLayout>
@@ -358,36 +358,13 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_menu_recent_history"
-                android:tint="#FFFFFF" />
+                android:tint="#94A3B8" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contacts"
+                android:text="Activity"
                 android:textSize="10sp"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/outfit_regular"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navSettings"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_manage"
-                android:tint="#FFFFFF" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Settings"
-                android:textSize="10sp"
-                android:textColor="#FFFFFF"
+                android:textColor="#94A3B8"
                 android:fontFamily="@font/outfit_regular"
                 android:layout_marginTop="4dp" />
         </LinearLayout>
@@ -404,13 +381,13 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_menu_myplaces"
-                android:tint="#FFFFFF" />
+                android:tint="#94A3B8" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
                 android:textSize="10sp"
-                android:textColor="#FFFFFF"
+                android:textColor="#94A3B8"
                 android:fontFamily="@font/outfit_regular"
                 android:layout_marginTop="4dp" />
         </LinearLayout>

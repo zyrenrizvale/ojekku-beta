@@ -21,15 +21,13 @@ class MainActivity : AppCompatActivity() {
         btnMenuSend.setOnClickListener { showToast("OjekKuy Send segera hadir!") }
         btnMenuFood.setOnClickListener { showToast("OjekKuy Food segera hadir!") }
 
-        // Setup klik navigasi bawah bergaya kapsul
+        // Setup klik navigasi bawah bergaya kapsul putih
         val navHome = findViewById<LinearLayout>(R.id.navHome)
         val navActivity = findViewById<LinearLayout>(R.id.navActivity)
-        val navSettings = findViewById<LinearLayout>(R.id.navSettings)
         val navProfile = findViewById<LinearLayout>(R.id.navProfile)
 
-        navHome.setOnClickListener { showToast("Sudah di halaman Chats") }
-        navActivity.setOnClickListener { showToast("Halaman Contacts belum tersedia") }
-        navSettings.setOnClickListener { showToast("Halaman Settings belum tersedia") }
+        navHome.setOnClickListener { showToast("Sudah di halaman Home") }
+        navActivity.setOnClickListener { showToast("Halaman Activity belum tersedia") }
         navProfile.setOnClickListener { showToast("Halaman Profile belum tersedia") }
         
         // Setup top up
