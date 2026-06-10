@@ -67,7 +67,8 @@ class TransactionActivity : AppCompatActivity() {
     private var dropoffPoint: GeoPoint? = null
     private var driverMarker: Marker? = null
     
-    private var routePoints: List<GeoPoint> = emptyList()
+    // Simpan rute utama (Jemput ke Tujuan)
+    private var mainRoutePoints: List<GeoPoint> = emptyList()
     private var cachedLocationName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -168,7 +169,6 @@ class TransactionActivity : AppCompatActivity() {
         val mapController = map.controller
         mapController.setZoom(17.0)
         
-        // Coba dapatkan lokasi instan dari sistem
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         var bestLocation: android.location.Location? = null
         try {
@@ -270,8 +270,10 @@ class TransactionActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchOSRMRoute(start: GeoPoint, end: GeoPoint, onComplete: () -> Unit) {
+    // Fungsi Fetch OSRM sekarang mengembalikan List<GeoPoint> agar bisa dipakai berulang
+    private fun fetchOSRMRoute(start: GeoPoint, end: GeoPoint, onComplete: (List<GeoPoint>) -> Unit) {
         thread {
+            var fetchedPoints = emptyList<GeoPoint>()
             try {
                 val urlStr = "http://router.project-osrm.org/route/v1/driving/${start.longitude},${start.latitude};${end.longitude},${end.latitude}?overview=full&geometries=geojson"
                 val url = URL(urlStr)
@@ -286,19 +288,19 @@ class TransactionActivity : AppCompatActivity() {
                         val geometry = route.getJSONObject("geometry")
                         val coordinates = geometry.getJSONArray("coordinates")
                         
-                        val points = mutableListOf<GeoPoint>()
+                        val pointsList = mutableListOf<GeoPoint>()
                         for (i in 0 until coordinates.length()) {
                             val coord = coordinates.getJSONArray(i)
-                            points.add(GeoPoint(coord.getDouble(1), coord.getDouble(0)))
+                            pointsList.add(GeoPoint(coord.getDouble(1), coord.getDouble(0)))
                         }
-                        routePoints = points
+                        fetchedPoints = pointsList
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
             runOnUiThread {
-                onComplete()
+                onComplete(fetchedPoints)
             }
         }
     }
@@ -327,13 +329,13 @@ class TransactionActivity : AppCompatActivity() {
                 tvPrice.text = if (serviceType == "CAR") "Rp 35.000" else "Rp 15.000"
                 
                 Toast.makeText(this, "Mengkalkulasi Rute OSRM...", Toast.LENGTH_SHORT).show()
-                fetchOSRMRoute(pickupPoint!!, dropoffPoint!!) {
-                    if (routePoints.isEmpty()) {
-                        routePoints = listOf(pickupPoint!!, dropoffPoint!!) // Fallback
-                    }
+                
+                // Minta rute Jemput -> Tujuan
+                fetchOSRMRoute(pickupPoint!!, dropoffPoint!!) { route ->
+                    mainRoutePoints = if (route.isEmpty()) listOf(pickupPoint!!, dropoffPoint!!) else route
                     
                     val line = Polyline()
-                    line.setPoints(routePoints)
+                    line.setPoints(mainRoutePoints)
                     line.color = 0xFF0056D2.toInt() // Biru OjekKuy
                     line.width = 15f
                     map.overlays.add(line)
@@ -358,33 +360,43 @@ class TransactionActivity : AppCompatActivity() {
     }
 
     private fun startDriverSimulation() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            pbLoading.visibility = View.GONE
-            driverInfoPanel.visibility = View.VISIBLE
-            tvTrackingStatus.text = "Driver sedang menuju ke lokasi Anda"
-
-            val driverStartGeo = GeoPoint(pickupPoint!!.latitude + 0.003, pickupPoint!!.longitude - 0.003)
+        // Acak posisi awal driver secara random dalam radius kecil
+        val randomOffsetLat = (Math.random() - 0.5) * 0.01
+        val randomOffsetLon = (Math.random() - 0.5) * 0.01
+        val driverSpawnPoint = GeoPoint(pickupPoint!!.latitude + randomOffsetLat, pickupPoint!!.longitude + randomOffsetLon)
+        
+        // Minta OSRM untuk mencari jalan dari tempat driver spawn ke tempat jemput
+        fetchOSRMRoute(driverSpawnPoint, pickupPoint!!) { routeToPickup ->
             
-            // Pilih Ikon Driver (Motor atau Mobil)
-            val driverIcon = if (serviceType == "CAR") R.drawable.ic_pin_car else R.drawable.ic_pin_driver
-            
-            driverMarker = addMarker(driverStartGeo, "Driver", driverIcon)
-            map.controller.animateTo(driverStartGeo, 17.0, 1000)
+            Handler(Looper.getMainLooper()).postDelayed({
+                pbLoading.visibility = View.GONE
+                driverInfoPanel.visibility = View.VISIBLE
+                tvTrackingStatus.text = "Driver sedang menuju ke lokasi Anda"
 
-            // 1. Driver menuju lokasi jemput (Straight Line interpolasi)
-            animateMarkerAlongRoute(listOf(driverStartGeo, pickupPoint!!), 4000) {
-                tvTrackingStatus.text = "Menuju ke Tujuan"
-                Toast.makeText(this@TransactionActivity, "Driver telah tiba di lokasi jemput!", Toast.LENGTH_SHORT).show()
+                // Ambil titik awal jalan aspal jika ketemu, jika tidak pakai lokasi randomnya
+                val actualStartPoint = if (routeToPickup.isNotEmpty()) routeToPickup.first() else driverSpawnPoint
+                val driverIcon = if (serviceType == "CAR") R.drawable.ic_pin_car else R.drawable.ic_pin_driver
                 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    // 2. Driver menuju lokasi tujuan (Mengikuti Routing OSRM Nyata)
-                    animateMarkerAlongRoute(routePoints, 8000) {
-                        Toast.makeText(this@TransactionActivity, "Pesanan Selesai! Terima kasih.", Toast.LENGTH_LONG).show()
-                        finish()
-                    }
-                }, 1000)
-            }
-        }, 3000)
+                driverMarker = addMarker(actualStartPoint, "Driver", driverIcon)
+                map.controller.animateTo(actualStartPoint, 17.0, 1000)
+
+                // 1. Driver menuju lokasi jemput (Mengikuti aspal nyata)
+                val finalRouteToPickup = if (routeToPickup.isNotEmpty()) routeToPickup else listOf(actualStartPoint, pickupPoint!!)
+                
+                animateMarkerAlongRoute(finalRouteToPickup, 6000) {
+                    tvTrackingStatus.text = "Menuju ke Tujuan"
+                    Toast.makeText(this@TransactionActivity, "Driver telah tiba di lokasi jemput!", Toast.LENGTH_SHORT).show()
+                    
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        // 2. Driver menuju lokasi tujuan (Mengikuti rute utama)
+                        animateMarkerAlongRoute(mainRoutePoints, 10000) {
+                            Toast.makeText(this@TransactionActivity, "Pesanan Selesai! Terima kasih.", Toast.LENGTH_LONG).show()
+                            finish()
+                        }
+                    }, 1500)
+                }
+            }, 1500) // Delay sedikit agar radar pencarian terlihat
+        }
     }
 
     private fun addMarker(point: GeoPoint, title: String, iconRes: Int): Marker {

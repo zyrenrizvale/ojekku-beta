@@ -4,17 +4,13 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
     <!-- Circular Background -->
-    <circle
-        android:cx="12"
-        android:cy="12"
-        android:radius="11"
-        android:fillColor="#F59E0B" />
-    <circle
-        android:cx="12"
-        android:cy="12"
-        android:radius="11"
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M 12,1 a 11,11 0 1,0 0,22 a 11,11 0 1,0 0,-22" />
+    <path
         android:strokeWidth="1"
-        android:strokeColor="#FFFFFF" />
+        android:strokeColor="#FFFFFF"
+        android:pathData="M 12,1 a 11,11 0 1,0 0,22 a 11,11 0 1,0 0,-22" />
     <!-- Car Silhouette -->
     <path
         android:fillColor="#FFFFFF"
