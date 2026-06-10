@@ -2,48 +2,105 @@ package com.example.ojekku
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navHomeInner: LinearLayout
+    private lateinit var navActivityInner: LinearLayout
+    private lateinit var navProfileInner: LinearLayout
+    private lateinit var navHomeText: TextView
+    private lateinit var navActivityText: TextView
+    private lateinit var navProfileText: TextView
+    private lateinit var navHomeIcon: ImageView
+    private lateinit var navActivityIcon: ImageView
+    private lateinit var navProfileIcon: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
-        // Setup klik untuk layanan utama
-        val btnMenuRide = findViewById<LinearLayout>(R.id.btnMenuRide)
-        val btnMenuCar = findViewById<LinearLayout>(R.id.btnMenuCar)
-        val btnMenuSend = findViewById<LinearLayout>(R.id.btnMenuSend)
-        val btnMenuFood = findViewById<LinearLayout>(R.id.btnMenuFood)
 
-        btnMenuRide.setOnClickListener { showToast("OjekKuy Ride segera hadir!") }
-        btnMenuCar.setOnClickListener { showToast("OjekKuy Car segera hadir!") }
-        btnMenuSend.setOnClickListener { showToast("OjekKuy Send segera hadir!") }
-        btnMenuFood.setOnClickListener { showToast("OjekKuy Food segera hadir!") }
+        navHomeInner = findViewById(R.id.navHomeInner)
+        navActivityInner = findViewById(R.id.navActivityInner)
+        navProfileInner = findViewById(R.id.navProfileInner)
+        navHomeText = findViewById(R.id.navHomeText)
+        navActivityText = findViewById(R.id.navActivityText)
+        navProfileText = findViewById(R.id.navProfileText)
+        navHomeIcon = findViewById(R.id.navHomeIcon)
+        navActivityIcon = findViewById(R.id.navActivityIcon)
+        navProfileIcon = findViewById(R.id.navProfileIcon)
 
-        // Setup klik navigasi bawah bergaya kapsul putih
-        val navActivity = findViewById<LinearLayout>(R.id.navActivity)
-        val navProfile = findViewById<LinearLayout>(R.id.navProfile)
-
-        navActivity.setOnClickListener {
-            val intent = Intent(this, HistoryActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-            startActivity(intent)
+        // Load tab awal
+        if (savedInstanceState == null) {
+            loadFragment(HomeFragment(), "HOME")
+            setNavActive(0)
         }
 
-        navProfile.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-            startActivity(intent)
+        // Klik navigasi
+        findViewById<LinearLayout>(R.id.navHome).setOnClickListener {
+            loadFragment(HomeFragment(), "HOME")
+            setNavActive(0)
         }
-        
-        // Setup top up
-        val btnTopUp = findViewById<android.widget.Button>(R.id.btnTopUp)
-        btnTopUp.setOnClickListener { showToast("Fitur Top Up sedang dalam pemeliharaan") }
+        findViewById<LinearLayout>(R.id.navActivity).setOnClickListener {
+            loadFragment(HistoryFragment(), "HISTORY")
+            setNavActive(1)
+        }
+        findViewById<LinearLayout>(R.id.navProfile).setOnClickListener {
+            loadFragment(ProfileFragment(), "PROFILE")
+            setNavActive(2)
+        }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun loadFragment(fragment: Fragment, tag: String) {
+        val existing = supportFragmentManager.findFragmentByTag(tag)
+        val tx = supportFragmentManager.beginTransaction()
+        tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+        if (existing != null) {
+            tx.replace(R.id.fragmentContainer, existing, tag)
+        } else {
+            tx.replace(R.id.fragmentContainer, fragment, tag)
+        }
+        tx.commit()
+    }
+
+    private fun setNavActive(index: Int) {
+        val inactiveColor = 0xFF94A3B8.toInt()
+        val activeColor = 0xFF0056D2.toInt()
+        val activeBackground = resources.getDrawable(R.drawable.bg_pill_active_light, null)
+        val noBackground = null
+
+        // Reset semua
+        navHomeInner.background = noBackground
+        navActivityInner.background = noBackground
+        navProfileInner.background = noBackground
+        navHomeIcon.setColorFilter(inactiveColor)
+        navActivityIcon.setColorFilter(inactiveColor)
+        navProfileIcon.setColorFilter(inactiveColor)
+        navHomeText.setTextColor(inactiveColor)
+        navActivityText.setTextColor(inactiveColor)
+        navProfileText.setTextColor(inactiveColor)
+
+        // Aktifkan yang dipilih
+        when (index) {
+            0 -> {
+                navHomeInner.background = activeBackground
+                navHomeIcon.setColorFilter(activeColor)
+                navHomeText.setTextColor(activeColor)
+            }
+            1 -> {
+                navActivityInner.background = activeBackground
+                navActivityIcon.setColorFilter(activeColor)
+                navActivityText.setTextColor(activeColor)
+            }
+            2 -> {
+                navProfileInner.background = activeBackground
+                navProfileIcon.setColorFilter(activeColor)
+                navProfileText.setTextColor(activeColor)
+            }
+        }
     }
 }
