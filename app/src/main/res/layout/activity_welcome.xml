@@ -21,7 +21,8 @@
         android:layout_marginTop="80dp"
         android:text="OjekKuy!"
         android:textColor="#FFFFFF"
-        android:textSize="48sp"
+        android:textSize="56sp"
+        android:textStyle="bold"
         android:fontFamily="@font/pacifico"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +34,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="64dp"
         android:layout_marginTop="8dp"
-        android:text="We deliver water at any point of the earth in 30 minutes"
+        android:text="Layanan Ojek, Mobil, dan Kurir tercepat dan terpercaya di kotamu."
         android:textColor="#E2E8F0"
         android:textSize="16sp"
         android:fontFamily="@font/poppins_regular"
