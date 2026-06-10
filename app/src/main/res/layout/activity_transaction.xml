@@ -6,16 +6,50 @@
     android:layout_height="match_parent"
     android:background="#F8FAFC">
 
-    <!-- Top Bar -->
+    <!-- Map View Background -->
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomContainer" />
+
+    <!-- Center Pin Overlay (Used when selecting location) -->
+    <ImageView
+        android:id="@+id/ivCenterPin"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_myplaces"
+        android:tint="#EF4444"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/mapView"
+        app:layout_constraintBottom_toBottomOf="@id/mapView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Food Banner (Shown instead of Map for Food service) -->
+    <ImageView
+        android:id="@+id/ivFoodBanner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/bg_curved"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomContainer" />
+
+    <!-- Top Bar Overlay -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="24dp"
-        android:background="#FFFFFF"
-        android:elevation="4dp"
+        android:padding="20dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_card_white"
+        android:elevation="8dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -40,120 +74,117 @@
             android:layout_marginEnd="24dp" />
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintBottom_toTopOf="@id/bottomBar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Banner / Map Placeholder -->
-            <ImageView
-                android:id="@+id/ivHeaderImage"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:src="@drawable/bg_curved"
-                android:scaleType="centerCrop" />
-
-            <!-- Details Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp"
-                    android:background="#FFFFFF">
-
-                    <!-- Point A (Pickup) -->
-                    <LinearLayout
-                        android:id="@+id/layoutPointA"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_menu_myplaces" android:tint="#0056D2" />
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="16dp">
-                            <TextView android:id="@+id/tvLabelA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lokasi Jemput" android:textSize="12sp" android:textColor="#94A3B8" android:fontFamily="@font/outfit_regular" />
-                            <TextView android:id="@+id/tvValueA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Kantor OjekKuy Pusat" android:textSize="16sp" android:textColor="#0F172A" android:fontFamily="@font/outfit_bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View android:layout_width="2dp" android:layout_height="24dp" android:layout_marginStart="7dp" android:background="#E2E8F0" />
-
-                    <!-- Point B (Destination) -->
-                    <LinearLayout
-                        android:id="@+id/layoutPointB"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_menu_mylocation" android:tint="#EF4444" />
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="16dp">
-                            <TextView android:id="@+id/tvLabelB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lokasi Tujuan" android:textSize="12sp" android:textColor="#94A3B8" android:fontFamily="@font/outfit_regular" />
-                            <TextView android:id="@+id/tvValueB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mall Grand Indonesia" android:textSize="16sp" android:textColor="#0F172A" android:fontFamily="@font/outfit_bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
-
-    <!-- Bottom Action Bar -->
-    <LinearLayout
-        android:id="@+id/bottomBar"
+    <!-- Bottom Container for dynamic states -->
+    <FrameLayout
+        android:id="@+id/bottomContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="24dp"
         android:background="#FFFFFF"
-        android:elevation="8dp"
+        android:elevation="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <!-- STATE 1: Select Location -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/layoutStateSelect"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvSelectHint"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total Pembayaran"
-                android:textColor="#64748B"
-                android:textSize="12sp"
-                android:fontFamily="@font/outfit_regular" />
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rp 15.000"
+                android:text="Geser peta untuk memilih Lokasi Jemput"
                 android:textColor="#0F172A"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
+                android:textAlignment="center"
+                android:fontFamily="@font/outfit_bold"
+                android:layout_marginBottom="16dp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSetLocation"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_button"
+                android:text="Pilih Lokasi"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
                 android:fontFamily="@font/outfit_bold" />
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnOrder"
-            android:layout_width="140dp"
-            android:layout_height="56dp"
-            android:background="@drawable/bg_button"
-            android:text="Pesan"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:fontFamily="@font/outfit_bold" />
-    </LinearLayout>
+        <!-- STATE 2: Confirm Order (Also used for Food) -->
+        <LinearLayout
+            android:id="@+id/layoutStateConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="8dp">
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_menu_myplaces" android:tint="#0056D2" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="16dp">
+                    <TextView android:id="@+id/tvLabelA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lokasi Jemput" android:textSize="12sp" android:textColor="#94A3B8" android:fontFamily="@font/outfit_regular" />
+                    <TextView android:id="@+id/tvValueA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Menunggu pilihan..." android:textSize="14sp" android:textColor="#0F172A" android:fontFamily="@font/outfit_bold" />
+                </LinearLayout>
+            </LinearLayout>
 
+            <View android:layout_width="2dp" android:layout_height="16dp" android:layout_marginStart="7dp" android:background="#E2E8F0" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="8dp" android:layout_marginBottom="16dp">
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_menu_mylocation" android:tint="#EF4444" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="16dp">
+                    <TextView android:id="@+id/tvLabelB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lokasi Tujuan" android:textSize="12sp" android:textColor="#94A3B8" android:fontFamily="@font/outfit_regular" />
+                    <TextView android:id="@+id/tvValueB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Menunggu pilihan..." android:textSize="14sp" android:textColor="#0F172A" android:fontFamily="@font/outfit_bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="16dp">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total Pembayaran" android:textColor="#64748B" android:textSize="12sp" android:fontFamily="@font/outfit_regular" />
+                    <TextView android:id="@+id/tvPrice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rp 15.000" android:textColor="#0F172A" android:textSize="20sp" android:textStyle="bold" android:fontFamily="@font/outfit_bold" />
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatButton android:id="@+id/btnOrder" android:layout_width="140dp" android:layout_height="48dp" android:background="@drawable/bg_button" android:text="Pesan" android:textColor="#FFFFFF" android:textSize="16sp" android:textStyle="bold" android:textAllCaps="false" android:fontFamily="@font/outfit_bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- STATE 3: Searching & En Route -->
+        <LinearLayout
+            android:id="@+id/layoutStateTracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+            <ProgressBar
+                android:id="@+id/pbLoading"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginBottom="16dp" />
+            <TextView
+                android:id="@+id/tvTrackingStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mencari Driver di sekitarmu..."
+                android:textColor="#0F172A"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/outfit_bold"
+                android:layout_marginBottom="16dp" />
+            
+            <LinearLayout android:id="@+id/driverInfoPanel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:background="@drawable/bg_pill_active_light" android:padding="16dp" android:visibility="gone">
+                <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_info_details" android:tint="#0056D2" />
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Budi Setiawan" android:textColor="#0F172A" android:textSize="16sp" android:textStyle="bold" android:fontFamily="@font/outfit_bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Honda Beat - B 1234 ABC" android:textColor="#64748B" android:textSize="12sp" android:fontFamily="@font/outfit_regular" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
