@@ -4,6 +4,7 @@ import android.Manifest
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,7 +17,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import org.json.JSONArray
+import org.json.JSONObject
 import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.XYTileSource
 import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -24,7 +27,6 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
-import org.osmdroid.tileprovider.tilesource.XYTileSource
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -40,16 +42,13 @@ class TransactionActivity : AppCompatActivity() {
     private lateinit var btnSearchLocation: ImageView
     private lateinit var myLocationOverlay: MyLocationNewOverlay
 
-    // Layout Containers
     private lateinit var layoutStateSelect: LinearLayout
     private lateinit var layoutStateConfirm: LinearLayout
     private lateinit var layoutStateTracking: LinearLayout
 
-    // State 1: Select UI
     private lateinit var tvSelectHint: TextView
     private lateinit var btnSetLocation: Button
 
-    // State 2: Confirm UI
     private lateinit var tvLabelA: TextView
     private lateinit var tvValueA: TextView
     private lateinit var tvLabelB: TextView
@@ -57,7 +56,6 @@ class TransactionActivity : AppCompatActivity() {
     private lateinit var tvPrice: TextView
     private lateinit var btnOrder: Button
 
-    // State 3+: Tracking UI
     private lateinit var pbLoading: ProgressBar
     private lateinit var tvTrackingStatus: TextView
     private lateinit var driverInfoPanel: LinearLayout
@@ -68,14 +66,13 @@ class TransactionActivity : AppCompatActivity() {
     private var pickupPoint: GeoPoint? = null
     private var dropoffPoint: GeoPoint? = null
     private var driverMarker: Marker? = null
-
-    // Cache untuk nama alamat dari pencarian
+    
+    private var routePoints: List<GeoPoint> = emptyList()
     private var cachedLocationName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // FIX FORCE CLOSE: Set User-Agent wajib dari OSMDroid sebelum meload map
         val ctx: Context = applicationContext
         Configuration.getInstance().userAgentValue = packageName
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx))
@@ -84,7 +81,6 @@ class TransactionActivity : AppCompatActivity() {
 
         serviceType = intent.getStringExtra("SERVICE_TYPE") ?: "RIDE"
 
-        // Initialize Views
         map = findViewById(R.id.mapView)
         ivCenterPin = findViewById(R.id.ivCenterPin)
         ivFoodBanner = findViewById(R.id.ivFoodBanner)
@@ -154,7 +150,7 @@ class TransactionActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 100) {
-            setupMapMode() // Setup even if denied (fallback to Monas)
+            setupMapMode()
         }
     }
 
@@ -170,24 +166,32 @@ class TransactionActivity : AppCompatActivity() {
         map.setTileSource(cartoTileSource)
 
         val mapController = map.controller
-        mapController.setZoom(16.0)
+        mapController.setZoom(17.0)
         
-        // GPS Tracker
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(this), map)
-            myLocationOverlay.enableMyLocation()
-            map.overlays.add(myLocationOverlay)
-            
-            // Pan to GPS Location on first fix
-            myLocationOverlay.runOnFirstFix {
-                runOnUiThread {
-                    mapController.animateTo(myLocationOverlay.myLocation)
+        // Coba dapatkan lokasi instan dari sistem
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        var bestLocation: android.location.Location? = null
+        try {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                val providers = locationManager.getProviders(true)
+                for (provider in providers) {
+                    val l = locationManager.getLastKnownLocation(provider)
+                    if (l != null && (bestLocation == null || l.accuracy < bestLocation!!.accuracy)) {
+                        bestLocation = l
+                    }
                 }
+                
+                myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(this), map)
+                myLocationOverlay.enableMyLocation()
+                map.overlays.add(myLocationOverlay)
             }
-        }
+        } catch(e: Exception) {}
 
-        // Default Center: Monas, Jakarta if GPS not ready
-        val startPoint = GeoPoint(-6.175392, 106.827153)
+        val startPoint = if (bestLocation != null) {
+            GeoPoint(bestLocation.latitude, bestLocation.longitude)
+        } else {
+            GeoPoint(-6.175392, 106.827153) // Monas Fallback
+        }
         mapController.setCenter(startPoint)
 
         setupSearchFeature()
@@ -197,14 +201,14 @@ class TransactionActivity : AppCompatActivity() {
             val centerGeoPoint = map.mapCenter as GeoPoint
             if (currentState == 0) {
                 pickupPoint = centerGeoPoint
-                addMarker(pickupPoint!!, "Jemput", org.osmdroid.library.R.drawable.marker_default)
+                addMarker(pickupPoint!!, "Jemput", R.drawable.ic_pin_pickup)
                 tvValueA.text = cachedLocationName ?: "Titik Koordinat: ${pickupPoint!!.latitude.toString().take(7)}, ${pickupPoint!!.longitude.toString().take(8)}"
                 cachedLocationName = null
                 etSearchLocation.setText("")
                 changeState(1)
             } else if (currentState == 1) {
                 dropoffPoint = centerGeoPoint
-                addMarker(dropoffPoint!!, "Tujuan", org.osmdroid.library.R.drawable.marker_default)
+                addMarker(dropoffPoint!!, "Tujuan", R.drawable.ic_pin_dropoff)
                 tvValueB.text = cachedLocationName ?: "Titik Koordinat: ${dropoffPoint!!.latitude.toString().take(7)}, ${dropoffPoint!!.longitude.toString().take(8)}"
                 changeState(2)
             }
@@ -230,7 +234,6 @@ class TransactionActivity : AppCompatActivity() {
         val query = etSearchLocation.text.toString()
         if (query.isEmpty()) return
 
-        // Hide keyboard
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(etSearchLocation.windowToken, 0)
 
@@ -239,7 +242,6 @@ class TransactionActivity : AppCompatActivity() {
         thread {
             try {
                 val encodedQuery = URLEncoder.encode(query, "UTF-8")
-                // Menggunakan Nominatim API gratis (OSM)
                 val url = URL("https://nominatim.openstreetmap.org/search?q=$encodedQuery&format=json&limit=1")
                 val connection = url.openConnection() as HttpURLConnection
                 connection.setRequestProperty("User-Agent", packageName)
@@ -256,7 +258,6 @@ class TransactionActivity : AppCompatActivity() {
                         runOnUiThread {
                             map.controller.animateTo(GeoPoint(lat, lon), 18.0, 1000)
                             Toast.makeText(this@TransactionActivity, "Ditemukan!", Toast.LENGTH_SHORT).show()
-                            // Simpan nama tempat untuk ditampilkan saat tombol "Pilih Lokasi" ditekan
                             cachedLocationName = displayName.split(",").take(2).joinToString(",")
                         }
                     } else {
@@ -265,7 +266,39 @@ class TransactionActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                runOnUiThread { Toast.makeText(this@TransactionActivity, "Error pencarian lokasi", Toast.LENGTH_SHORT).show() }
+            }
+        }
+    }
+
+    private fun fetchOSRMRoute(start: GeoPoint, end: GeoPoint, onComplete: () -> Unit) {
+        thread {
+            try {
+                val urlStr = "http://router.project-osrm.org/route/v1/driving/${start.longitude},${start.latitude};${end.longitude},${end.latitude}?overview=full&geometries=geojson"
+                val url = URL(urlStr)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.setRequestProperty("User-Agent", packageName)
+                if (connection.responseCode == 200) {
+                    val response = connection.inputStream.bufferedReader().readText()
+                    val jsonObject = JSONObject(response)
+                    val routes = jsonObject.optJSONArray("routes")
+                    if (routes != null && routes.length() > 0) {
+                        val route = routes.getJSONObject(0)
+                        val geometry = route.getJSONObject("geometry")
+                        val coordinates = geometry.getJSONArray("coordinates")
+                        
+                        val points = mutableListOf<GeoPoint>()
+                        for (i in 0 until coordinates.length()) {
+                            val coord = coordinates.getJSONArray(i)
+                            points.add(GeoPoint(coord.getDouble(1), coord.getDouble(0)))
+                        }
+                        routePoints = points
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            runOnUiThread {
+                onComplete()
             }
         }
     }
@@ -291,26 +324,28 @@ class TransactionActivity : AppCompatActivity() {
                 searchBarLayout.visibility = View.GONE
                 layoutStateSelect.visibility = View.GONE
                 layoutStateConfirm.visibility = View.VISIBLE
-                
-                // Draw Polyline (OjekKuy Route Style)
-                val line = Polyline()
-                line.addPoint(pickupPoint)
-                line.addPoint(dropoffPoint)
-                line.color = 0xFF0056D2.toInt() // Biru OjekKuy
-                line.width = 15f // Lebih tebal
-                map.overlays.add(line)
-
-                // Zoom to bounding box
-                val boundingBox = BoundingBox(
-                    Math.max(pickupPoint!!.latitude, dropoffPoint!!.latitude),
-                    Math.max(pickupPoint!!.longitude, dropoffPoint!!.longitude),
-                    Math.min(pickupPoint!!.latitude, dropoffPoint!!.latitude),
-                    Math.min(pickupPoint!!.longitude, dropoffPoint!!.longitude)
-                )
-                // Add padding and zoom
-                map.zoomToBoundingBox(boundingBox, true, 200)
-
                 tvPrice.text = if (serviceType == "CAR") "Rp 35.000" else "Rp 15.000"
+                
+                Toast.makeText(this, "Mengkalkulasi Rute OSRM...", Toast.LENGTH_SHORT).show()
+                fetchOSRMRoute(pickupPoint!!, dropoffPoint!!) {
+                    if (routePoints.isEmpty()) {
+                        routePoints = listOf(pickupPoint!!, dropoffPoint!!) // Fallback
+                    }
+                    
+                    val line = Polyline()
+                    line.setPoints(routePoints)
+                    line.color = 0xFF0056D2.toInt() // Biru OjekKuy
+                    line.width = 15f
+                    map.overlays.add(line)
+
+                    val boundingBox = BoundingBox(
+                        Math.max(pickupPoint!!.latitude, dropoffPoint!!.latitude),
+                        Math.max(pickupPoint!!.longitude, dropoffPoint!!.longitude),
+                        Math.min(pickupPoint!!.latitude, dropoffPoint!!.latitude),
+                        Math.min(pickupPoint!!.longitude, dropoffPoint!!.longitude)
+                    )
+                    map.zoomToBoundingBox(boundingBox, true, 200)
+                }
             }
             3 -> {
                 layoutStateConfirm.visibility = View.GONE
@@ -328,16 +363,22 @@ class TransactionActivity : AppCompatActivity() {
             driverInfoPanel.visibility = View.VISIBLE
             tvTrackingStatus.text = "Driver sedang menuju ke lokasi Anda"
 
-            val driverStartGeo = GeoPoint(pickupPoint!!.latitude + 0.005, pickupPoint!!.longitude - 0.005)
-            driverMarker = addMarker(driverStartGeo, "Driver", android.R.drawable.ic_menu_directions)
-            map.controller.animateTo(driverStartGeo, 16.0, 1000)
+            val driverStartGeo = GeoPoint(pickupPoint!!.latitude + 0.003, pickupPoint!!.longitude - 0.003)
+            
+            // Pilih Ikon Driver (Motor atau Mobil)
+            val driverIcon = if (serviceType == "CAR") R.drawable.ic_pin_car else R.drawable.ic_pin_driver
+            
+            driverMarker = addMarker(driverStartGeo, "Driver", driverIcon)
+            map.controller.animateTo(driverStartGeo, 17.0, 1000)
 
-            animateMarker(driverStartGeo, pickupPoint!!, 4000) {
+            // 1. Driver menuju lokasi jemput (Straight Line interpolasi)
+            animateMarkerAlongRoute(listOf(driverStartGeo, pickupPoint!!), 4000) {
                 tvTrackingStatus.text = "Menuju ke Tujuan"
                 Toast.makeText(this@TransactionActivity, "Driver telah tiba di lokasi jemput!", Toast.LENGTH_SHORT).show()
                 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    animateMarker(pickupPoint!!, dropoffPoint!!, 6000) {
+                    // 2. Driver menuju lokasi tujuan (Mengikuti Routing OSRM Nyata)
+                    animateMarkerAlongRoute(routePoints, 8000) {
                         Toast.makeText(this@TransactionActivity, "Pesanan Selesai! Terima kasih.", Toast.LENGTH_LONG).show()
                         finish()
                     }
@@ -358,13 +399,44 @@ class TransactionActivity : AppCompatActivity() {
         return marker
     }
 
-    private fun animateMarker(start: GeoPoint, end: GeoPoint, durationMs: Long, onFinish: () -> Unit) {
+    private fun animateMarkerAlongRoute(points: List<GeoPoint>, durationMs: Long, onFinish: () -> Unit) {
+        if (points.size < 2) {
+            onFinish()
+            return
+        }
+        
+        var totalDistance = 0.0
+        val segmentDistances = DoubleArray(points.size - 1)
+        for (i in 0 until points.size - 1) {
+            val dist = points[i].distanceToAsDouble(points[i+1])
+            segmentDistances[i] = dist
+            totalDistance += dist
+        }
+
         val animator = ValueAnimator.ofFloat(0f, 1f)
         animator.duration = durationMs
         animator.addUpdateListener { animation ->
             val fraction = animation.animatedFraction
-            val lat = start.latitude + (end.latitude - start.latitude) * fraction
-            val lon = start.longitude + (end.longitude - start.longitude) * fraction
+            val targetDistance = fraction * totalDistance
+            
+            var accumulatedDistance = 0.0
+            var segmentIndex = 0
+            while (segmentIndex < segmentDistances.size && accumulatedDistance + segmentDistances[segmentIndex] < targetDistance) {
+                accumulatedDistance += segmentDistances[segmentIndex]
+                segmentIndex++
+            }
+            
+            if (segmentIndex >= points.size - 1) {
+                segmentIndex = points.size - 2
+            }
+            
+            val p1 = points[segmentIndex]
+            val p2 = points[segmentIndex + 1]
+            val segmentFraction = if (segmentDistances[segmentIndex] == 0.0) 0.0 else (targetDistance - accumulatedDistance) / segmentDistances[segmentIndex]
+            
+            val lat = p1.latitude + (p2.latitude - p1.latitude) * segmentFraction
+            val lon = p1.longitude + (p2.longitude - p1.longitude) * segmentFraction
+            
             val currentGeo = GeoPoint(lat, lon)
             driverMarker?.position = currentGeo
             map.controller.setCenter(currentGeo)
