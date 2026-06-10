@@ -110,7 +110,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Services Grid -->
+            <!-- Primary Services Grid -->
             <LinearLayout
                 android:id="@+id/layoutServices"
                 android:layout_width="match_parent"
@@ -120,124 +120,59 @@
                 android:weightSum="4"
                 app:layout_constraintTop_toBottomOf="@id/cardWallet">
 
-                <!-- Ride -->
-                <LinearLayout
-                    android:id="@+id/btnMenuRide"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_button_white"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_motorcycle"
-                        android:tint="#0056D2"
-                        android:elevation="2dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ride"
-                        android:textColor="#334155"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/outfit_bold"
-                        android:layout_marginTop="8dp" />
+                <LinearLayout android:id="@+id/btnMenuRide" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:background="?attr/selectableItemBackground" android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="vertical">
+                    <ImageView android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/bg_button_white" android:padding="12dp" android:src="@drawable/ic_motorcycle" android:tint="#0056D2" android:elevation="2dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ride" android:textColor="#334155" android:textSize="14sp" android:fontFamily="@font/outfit_bold" android:layout_marginTop="8dp" />
                 </LinearLayout>
 
-                <!-- Car -->
-                <LinearLayout
-                    android:id="@+id/btnMenuCar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_button_white"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_car"
-                        android:tint="#0056D2"
-                        android:elevation="2dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Car"
-                        android:textColor="#334155"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/outfit_bold"
-                        android:layout_marginTop="8dp" />
+                <LinearLayout android:id="@+id/btnMenuCar" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:background="?attr/selectableItemBackground" android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="vertical">
+                    <ImageView android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/bg_button_white" android:padding="12dp" android:src="@drawable/ic_car" android:tint="#0056D2" android:elevation="2dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Car" android:textColor="#334155" android:textSize="14sp" android:fontFamily="@font/outfit_bold" android:layout_marginTop="8dp" />
                 </LinearLayout>
 
-                <!-- Send -->
-                <LinearLayout
-                    android:id="@+id/btnMenuSend"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_button_white"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_box"
-                        android:tint="#0056D2"
-                        android:elevation="2dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Send"
-                        android:textColor="#334155"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/outfit_bold"
-                        android:layout_marginTop="8dp" />
+                <LinearLayout android:id="@+id/btnMenuSend" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:background="?attr/selectableItemBackground" android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="vertical">
+                    <ImageView android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/bg_button_white" android:padding="12dp" android:src="@drawable/ic_box" android:tint="#0056D2" android:elevation="2dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Send" android:textColor="#334155" android:textSize="14sp" android:fontFamily="@font/outfit_bold" android:layout_marginTop="8dp" />
                 </LinearLayout>
 
-                <!-- Food -->
-                <LinearLayout
-                    android:id="@+id/btnMenuFood"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_button_white"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_food"
-                        android:tint="#0056D2"
-                        android:elevation="2dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Food"
-                        android:textColor="#334155"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/outfit_bold"
-                        android:layout_marginTop="8dp" />
+                <LinearLayout android:id="@+id/btnMenuFood" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:background="?attr/selectableItemBackground" android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="vertical">
+                    <ImageView android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/bg_button_white" android:padding="12dp" android:src="@drawable/ic_food" android:tint="#0056D2" android:elevation="2dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Food" android:textColor="#334155" android:textSize="14sp" android:fontFamily="@font/outfit_bold" android:layout_marginTop="8dp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Promo Banner Section -->
+            <!-- Secondary Services Grid -->
+            <LinearLayout
+                android:id="@+id/layoutServicesSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                app:layout_constraintTop_toBottomOf="@id/layoutServices">
+
+                <LinearLayout android:id="@+id/btnMenuPulsa" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:background="?attr/selectableItemBackground" android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="vertical">
+                    <ImageView android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_button_white" android:padding="12dp" android:src="@android:drawable/ic_menu_call" android:tint="#64748B" android:elevation="1dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pulsa" android:textColor="#64748B" android:textSize="12sp" android:fontFamily="@font/outfit_regular" android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/btnMenuTagihan" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:background="?attr/selectableItemBackground" android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="vertical">
+                    <ImageView android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_button_white" android:padding="12dp" android:src="@android:drawable/ic_menu_agenda" android:tint="#64748B" android:elevation="1dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tagihan" android:textColor="#64748B" android:textSize="12sp" android:fontFamily="@font/outfit_regular" android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/btnMenuTiket" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:background="?attr/selectableItemBackground" android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="vertical">
+                    <ImageView android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_button_white" android:padding="12dp" android:src="@android:drawable/ic_menu_day" android:tint="#64748B" android:elevation="1dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tiket" android:textColor="#64748B" android:textSize="12sp" android:fontFamily="@font/outfit_regular" android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/btnMenuLainnya" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:background="?attr/selectableItemBackground" android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="vertical">
+                    <ImageView android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_button_white" android:padding="12dp" android:src="@android:drawable/ic_menu_more" android:tint="#64748B" android:elevation="1dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lainnya" android:textColor="#64748B" android:textSize="12sp" android:fontFamily="@font/outfit_regular" android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Promo Section -->
             <TextView
                 android:id="@+id/tvPromoTitle"
                 android:layout_width="wrap_content"
@@ -250,39 +185,49 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutServices" />
+                app:layout_constraintTop_toBottomOf="@id/layoutServicesSecondary" />
 
-            <!-- Banner Card -->
-            <LinearLayout
-                android:id="@+id/bannerPromo"
+            <!-- Horizontal Scroll Promo -->
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_promo"
-                android:padding="24dp"
-                android:orientation="vertical"
+                android:scrollbars="none"
+                android:clipToPadding="false"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
                 app:layout_constraintTop_toBottomOf="@id/tvPromoTitle">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Diskon 50%"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/outfit_bold" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Khusus pengguna baru OjekKuy! Pakai kode: BARUKUY"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/outfit_regular"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+                    <!-- Promo 1 -->
+                    <LinearLayout
+                        android:layout_width="280dp"
+                        android:layout_height="140dp"
+                        android:background="@drawable/bg_promo"
+                        android:padding="24dp"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="16dp">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Diskon 50%" android:textColor="#FFFFFF" android:textSize="24sp" android:textStyle="bold" android:fontFamily="@font/outfit_bold" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Khusus pengguna baru OjekKuy! Pakai kode: BARUKUY" android:textColor="#FFFFFF" android:textSize="14sp" android:fontFamily="@font/outfit_regular" android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <!-- Promo 2 -->
+                    <LinearLayout
+                        android:layout_width="280dp"
+                        android:layout_height="140dp"
+                        android:background="@drawable/bg_promo"
+                        android:padding="24dp"
+                        android:orientation="vertical">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Cashback 20%" android:textColor="#FFFFFF" android:textSize="24sp" android:textStyle="bold" android:fontFamily="@font/outfit_bold" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Untuk pesanan Food setiap weekend. Kode: MAKANMANTAP" android:textColor="#FFFFFF" android:textSize="14sp" android:fontFamily="@font/outfit_regular" android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
