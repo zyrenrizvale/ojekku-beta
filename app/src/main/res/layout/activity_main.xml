@@ -6,219 +6,300 @@
     android:layout_height="match_parent"
     android:background="#F8FAFC">
 
-    <!-- Top Blue Background -->
-    <View
-        android:id="@+id/vTopBg"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="#0056D2"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navBar">
 
-    <!-- Top Bar -->
-    <TextView
-        android:id="@+id/tvGreeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
-        android:text="Halo, Rizki!"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivNotification"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="24dp"
-        android:src="@android:drawable/ic_popup_reminder"
-        android:tint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvGreeting" />
-
-    <!-- Wallet Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardWallet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="24dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvGreeting">
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:gravity="center_vertical"
-            android:background="#FFFFFF">
+            android:paddingBottom="32dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <!-- Wavy Blue Background (reused for beautiful header) -->
+            <ImageView
+                android:id="@+id/vTopBg"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:src="@drawable/bg_wave"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Top Bar -->
+            <TextView
+                android:id="@+id/tvGreeting"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="48dp"
+                android:text="Halo, Rizki!"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="OjekKuy Pay"
-                    android:textColor="#64748B"
-                    android:textSize="14sp"
-                    android:fontFamily="sans-serif-medium" />
+            <ImageView
+                android:id="@+id/ivNotification"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                android:src="@android:drawable/ic_popup_reminder"
+                android:tint="#FFFFFF"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvGreeting" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+            <!-- Wallet Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardWallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:layout_constraintTop_toBottomOf="@id/tvGreeting">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rp 150.000"
-                    android:textColor="#0F172A"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif-black"
-                    android:layout_marginTop="4dp" />
+                    android:orientation="horizontal"
+                    android:padding="20dp"
+                    android:gravity="center_vertical"
+                    android:background="#FFFFFF">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="OjekKuy Pay"
+                            android:textColor="#64748B"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rp 150.000"
+                            android:textColor="#0F172A"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-black"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnTopUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Top Up"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_button"
+                        android:textAllCaps="false"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Services Grid -->
+            <LinearLayout
+                android:id="@+id/layoutServices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                app:layout_constraintTop_toBottomOf="@id/cardWallet">
+
+                <!-- Ride -->
+                <LinearLayout
+                    android:id="@+id/btnMenuRide"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_button_white"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_motorcycle"
+                        android:tint="#0056D2"
+                        android:elevation="2dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ride"
+                        android:textColor="#334155"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <!-- Car -->
+                <LinearLayout
+                    android:id="@+id/btnMenuCar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_button_white"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_car"
+                        android:tint="#0056D2"
+                        android:elevation="2dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Car"
+                        android:textColor="#334155"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <!-- Send -->
+                <LinearLayout
+                    android:id="@+id/btnMenuSend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_button_white"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_box"
+                        android:tint="#0056D2"
+                        android:elevation="2dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Send"
+                        android:textColor="#334155"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <!-- Food -->
+                <LinearLayout
+                    android:id="@+id/btnMenuFood"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_button_white"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_food"
+                        android:tint="#0056D2"
+                        android:elevation="2dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Food"
+                        android:textColor="#334155"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <!-- Promo Banner Section -->
+            <TextView
+                android:id="@+id/tvPromoTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="Top Up"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/bg_button"
-                android:textAllCaps="false"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:fontFamily="sans-serif-medium" />
+                android:layout_height="wrap_content"
+                android:text="Promo Spesial Untukmu"
+                android:textSize="16sp"
+                android:textColor="#0F172A"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutServices" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            <!-- Banner Card -->
+            <LinearLayout
+                android:id="@+id/bannerPromo"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_promo"
+                android:padding="24dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/tvPromoTitle">
+                
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Diskon 50%"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-black" />
 
-    <!-- Services Section -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Khusus pengguna baru OjekKuy! Pakai kode: BARUKUY"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation Bar -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        android:weightSum="4"
-        app:layout_constraintTop_toBottomOf="@id/cardWallet">
-
-        <!-- Ride -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_button_white"
-                android:padding="12dp"
-                android:src="@drawable/ic_motorcycle"
-                android:tint="#0056D2"
-                android:elevation="2dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ride"
-                android:textColor="#334155"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-        <!-- Car -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_button_white"
-                android:padding="12dp"
-                android:src="@drawable/ic_car"
-                android:tint="#0056D2"
-                android:elevation="2dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Car"
-                android:textColor="#334155"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-        <!-- Send -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_button_white"
-                android:padding="12dp"
-                android:src="@drawable/ic_box"
-                android:tint="#0056D2"
-                android:elevation="2dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send"
-                android:textColor="#334155"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-        <!-- Food -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_button_white"
-                android:padding="12dp"
-                android:src="@drawable/ic_food"
-                android:tint="#0056D2"
-                android:elevation="2dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Food"
-                android:textColor="#334155"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Bottom Navigation Stub -->
-    <LinearLayout
+        android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="#FFFFFF"
@@ -228,10 +309,12 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+            android:id="@+id/navHome"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:background="?attr/selectableItemBackground"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="24dp"
@@ -248,10 +331,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navActivity"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:background="?attr/selectableItemBackground"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="24dp"
@@ -268,10 +353,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navProfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:background="?attr/selectableItemBackground"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="24dp"
