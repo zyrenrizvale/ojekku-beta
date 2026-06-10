@@ -40,7 +40,7 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/outfit_regular"
         android:lineSpacingExtra="-4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivBack" />
@@ -79,7 +79,7 @@
                 android:drawablePadding="16dp"
                 android:hint="Full Name"
                 android:inputType="textPersonName"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/outfit_regular"
                 android:textColor="#1E293B"
                 android:textColorHint="#94A3B8"
                 android:paddingTop="18dp"
@@ -111,7 +111,7 @@
                 android:drawablePadding="16dp"
                 android:hint="Email Address"
                 android:inputType="textEmailAddress"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/outfit_regular"
                 android:textColor="#1E293B"
                 android:textColorHint="#94A3B8"
                 android:paddingTop="18dp"
@@ -145,7 +145,7 @@
                 android:drawablePadding="16dp"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/outfit_regular"
                 android:textColor="#1E293B"
                 android:textColorHint="#94A3B8"
                 android:paddingTop="18dp"
@@ -166,7 +166,7 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:fontFamily="sans-serif" />
+            android:fontFamily="@font/outfit_regular" />
 
         <!-- Login Option -->
         <LinearLayout
@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:text="   OR   "
                 android:textColor="#94A3B8"
-                android:fontFamily="sans-serif"/>
+                android:fontFamily="@font/outfit_regular"/>
 
             <View
                 android:layout_width="0dp"
@@ -207,7 +207,7 @@
             android:textColor="#0056D2"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:fontFamily="sans-serif" />
+            android:fontFamily="@font/outfit_regular" />
 
     </LinearLayout>
 

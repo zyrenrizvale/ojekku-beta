@@ -1,5 +1,6 @@
 package com.example.ojekku
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -22,13 +23,20 @@ class MainActivity : AppCompatActivity() {
         btnMenuFood.setOnClickListener { showToast("OjekKuy Food segera hadir!") }
 
         // Setup klik navigasi bawah bergaya kapsul putih
-        val navHome = findViewById<LinearLayout>(R.id.navHome)
         val navActivity = findViewById<LinearLayout>(R.id.navActivity)
         val navProfile = findViewById<LinearLayout>(R.id.navProfile)
 
-        navHome.setOnClickListener { showToast("Sudah di halaman Home") }
-        navActivity.setOnClickListener { showToast("Halaman Activity belum tersedia") }
-        navProfile.setOnClickListener { showToast("Halaman Profile belum tersedia") }
+        navActivity.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+        }
+
+        navProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+        }
         
         // Setup top up
         val btnTopUp = findViewById<android.widget.Button>(R.id.btnTopUp)

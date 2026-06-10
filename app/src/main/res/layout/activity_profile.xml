@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC">
+
+    <!-- Profile Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0056D2"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="56dp"
+        android:paddingBottom="32dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Profile Photo Placeholder -->
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_circle"
+            android:src="@android:drawable/ic_menu_myplaces"
+            android:tint="#64748B"
+            android:padding="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rizki"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/outfit_bold"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="rizki@ojekkuy.com"
+            android:textColor="#CBD5E1"
+            android:textSize="14sp"
+            android:fontFamily="@font/outfit_regular"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toTopOf="@id/navBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Menu Item: Edit Profil -->
+            <LinearLayout
+                android:id="@+id/menuEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_white"
+                android:elevation="2dp"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_edit"
+                    android:tint="#0056D2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Edit Profil"
+                    android:textColor="#0F172A"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_marginStart="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="#94A3B8"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <!-- Menu Item: Lokasi Tersimpan -->
+            <LinearLayout
+                android:id="@+id/menuSavedLocations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_white"
+                android:elevation="2dp"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_mapmode"
+                    android:tint="#0056D2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lokasi Tersimpan"
+                    android:textColor="#0F172A"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_marginStart="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="#94A3B8"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <!-- Menu Item: Pusat Bantuan -->
+            <LinearLayout
+                android:id="@+id/menuHelp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_white"
+                android:elevation="2dp"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_help"
+                    android:tint="#0056D2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pusat Bantuan"
+                    android:textColor="#0F172A"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_marginStart="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="#94A3B8"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <!-- Menu Item: Tentang Aplikasi -->
+            <LinearLayout
+                android:id="@+id/menuAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_white"
+                android:elevation="2dp"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_info_details"
+                    android:tint="#0056D2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tentang OjekKuy!"
+                    android:textColor="#0F172A"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_marginStart="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="#94A3B8"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <!-- Logout Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_button_red"
+                android:text="Keluar dari Akun"
+                android:textAllCaps="false"
+                android:textColor="#DC2626"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/outfit_bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OjekKuy! v1.0"
+                android:textColor="#CBD5E1"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginTop="24dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Floating White Navbar (Capsule) - Profile Active -->
+    <LinearLayout
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_pill_white"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_compass"
+                android:tint="#94A3B8" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="10sp"
+                android:textColor="#94A3B8"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navActivity"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_recent_history"
+                android:tint="#94A3B8" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activity"
+                android:textSize="10sp"
+                android:textColor="#94A3B8"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_pill_active_light"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_myplaces"
+                    android:tint="#0056D2" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textSize="10sp"
+                    android:textColor="#0056D2"
+                    android:fontFamily="@font/outfit_bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

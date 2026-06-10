@@ -37,7 +37,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/outfit_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +85,7 @@
                             android:text="OjekKuy Pay"
                             android:textColor="#64748B"
                             android:textSize="14sp"
-                            android:fontFamily="sans-serif-medium" />
+                            android:fontFamily="@font/outfit_bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
                             android:textColor="#0F172A"
                             android:textSize="24sp"
                             android:textStyle="bold"
-                            android:fontFamily="sans-serif-black"
+                            android:fontFamily="@font/outfit_bold"
                             android:layout_marginTop="4dp" />
                     </LinearLayout>
 
@@ -108,7 +108,7 @@
                         android:textAllCaps="false"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
-                        android:fontFamily="sans-serif-medium" />
+                        android:fontFamily="@font/outfit_bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -149,7 +149,7 @@
                         android:text="Ride"
                         android:textColor="#334155"
                         android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:fontFamily="@font/outfit_bold"
                         android:layout_marginTop="8dp" />
                 </LinearLayout>
 
@@ -180,7 +180,7 @@
                         android:text="Car"
                         android:textColor="#334155"
                         android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:fontFamily="@font/outfit_bold"
                         android:layout_marginTop="8dp" />
                 </LinearLayout>
 
@@ -211,7 +211,7 @@
                         android:text="Send"
                         android:textColor="#334155"
                         android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:fontFamily="@font/outfit_bold"
                         android:layout_marginTop="8dp" />
                 </LinearLayout>
 
@@ -242,7 +242,7 @@
                         android:text="Food"
                         android:textColor="#334155"
                         android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:fontFamily="@font/outfit_bold"
                         android:layout_marginTop="8dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -256,7 +256,7 @@
                 android:textSize="16sp"
                 android:textColor="#0F172A"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/outfit_regular"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -282,7 +282,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:fontFamily="sans-serif-black" />
+                    android:fontFamily="@font/outfit_bold" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -290,7 +290,7 @@
                     android:text="Khusus pengguna baru OjekKuy! Pakai kode: BARUKUY"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@font/outfit_regular"
                     android:layout_marginTop="8dp" />
             </LinearLayout>
 

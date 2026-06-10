@@ -23,7 +23,7 @@
         android:textColor="#FFFFFF"
         android:textSize="56sp"
         android:textStyle="bold"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/outfit_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +37,7 @@
         android:text="Layanan Ojek, Mobil, dan Kurir tercepat dan terpercaya di kotamu."
         android:textColor="#E2E8F0"
         android:textSize="16sp"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/outfit_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
@@ -58,7 +58,7 @@
             android:textAllCaps="false"
             android:textColor="#0056D2"
             android:textSize="16sp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/outfit_bold"
             android:layout_marginBottom="16dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -70,7 +70,7 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:fontFamily="sans-serif-medium" />
+            android:fontFamily="@font/outfit_bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
