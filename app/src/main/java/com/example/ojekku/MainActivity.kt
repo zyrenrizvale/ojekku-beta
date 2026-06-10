@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navActivityIcon: ImageView
     private lateinit var navProfileIcon: ImageView
 
+    private var currentTab = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,26 +40,38 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             loadFragment(HomeFragment(), "HOME")
             setNavActive(0)
+            currentTab = "HOME"
         }
 
         // Klik navigasi
         findViewById<LinearLayout>(R.id.navHome).setOnClickListener {
-            loadFragment(HomeFragment(), "HOME")
-            setNavActive(0)
+            if (currentTab != "HOME") {
+                loadFragment(HomeFragment(), "HOME")
+                setNavActive(0)
+                currentTab = "HOME"
+            }
         }
         findViewById<LinearLayout>(R.id.navActivity).setOnClickListener {
-            loadFragment(HistoryFragment(), "HISTORY")
-            setNavActive(1)
+            if (currentTab != "HISTORY") {
+                loadFragment(HistoryFragment(), "HISTORY")
+                setNavActive(1)
+                currentTab = "HISTORY"
+            }
         }
         findViewById<LinearLayout>(R.id.navProfile).setOnClickListener {
-            loadFragment(ProfileFragment(), "PROFILE")
-            setNavActive(2)
+            if (currentTab != "PROFILE") {
+                loadFragment(ProfileFragment(), "PROFILE")
+                setNavActive(2)
+                currentTab = "PROFILE"
+            }
         }
     }
 
     private fun loadFragment(fragment: Fragment, tag: String) {
         val existing = supportFragmentManager.findFragmentByTag(tag)
         val tx = supportFragmentManager.beginTransaction()
+        // Menggunakan animasi kustom yang sangat cepat (120ms)
+        tx.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit)
         if (existing != null) {
             tx.replace(R.id.fragmentContainer, existing, tag)
         } else {
