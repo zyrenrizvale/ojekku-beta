@@ -6,15 +6,17 @@
     android:layout_height="match_parent"
     android:background="#F8FAFC">
 
-    <!-- Map View Background -->
-    <org.osmdroid.views.MapView
-        android:id="@+id/mapView"
+    <!-- Web Map Container -->
+    <WebView
+        android:id="@+id/mapWebView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomContainer" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Center Pin Overlay (Used when selecting location) -->
+    <!-- Center Pin Overlay (Used when selecting location - Hidden for Web Map) -->
     <ImageView
         android:id="@+id/ivCenterPin"
         android:layout_width="48dp"
@@ -23,8 +25,8 @@
         android:tint="#EF4444"
         android:layout_marginBottom="24dp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/mapView"
-        app:layout_constraintBottom_toBottomOf="@id/mapView"
+        app:layout_constraintTop_toTopOf="@id/mapWebView"
+        app:layout_constraintBottom_toBottomOf="@id/mapWebView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
