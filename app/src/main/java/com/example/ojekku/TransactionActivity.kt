@@ -24,6 +24,7 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+import org.osmdroid.tileprovider.tilesource.XYTileSource
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -159,6 +160,15 @@ class TransactionActivity : AppCompatActivity() {
 
     private fun setupMapMode() {
         map.setMultiTouchControls(true)
+        
+        // Custom Tile Source untuk OjekKuy Maps (CartoDB Positron)
+        val cartoTileSource = XYTileSource(
+            "CartoPositron",
+            0, 20, 256, ".png",
+            arrayOf("https://basemaps.cartocdn.com/light_all/")
+        )
+        map.setTileSource(cartoTileSource)
+
         val mapController = map.controller
         mapController.setZoom(16.0)
         
@@ -282,12 +292,12 @@ class TransactionActivity : AppCompatActivity() {
                 layoutStateSelect.visibility = View.GONE
                 layoutStateConfirm.visibility = View.VISIBLE
                 
-                // Draw Polyline
+                // Draw Polyline (OjekKuy Route Style)
                 val line = Polyline()
                 line.addPoint(pickupPoint)
                 line.addPoint(dropoffPoint)
-                line.color = 0xFF0056D2.toInt()
-                line.width = 10f
+                line.color = 0xFF0056D2.toInt() // Biru OjekKuy
+                line.width = 15f // Lebih tebal
                 map.overlays.add(line)
 
                 // Zoom to bounding box

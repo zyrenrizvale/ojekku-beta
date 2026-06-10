@@ -28,6 +28,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- OjekKuy Maps Watermark -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#A6FFFFFF"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomContainer"
+        app:layout_constraintStart_toStartOf="parent">
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@android:drawable/ic_menu_mapmode"
+            android:tint="#0056D2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OjekKuy Maps"
+            android:textColor="#0056D2"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/outfit_bold"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
     <!-- Food Banner (Shown instead of Map for Food service) -->
     <ImageView
         android:id="@+id/ivFoodBanner"
