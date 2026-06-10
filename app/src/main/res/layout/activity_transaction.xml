@@ -74,6 +74,46 @@
             android:layout_marginEnd="24dp" />
     </LinearLayout>
 
+    <!-- Search Bar Overlay -->
+    <LinearLayout
+        android:id="@+id/searchBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_card_white"
+        android:elevation="6dp"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <EditText
+            android:id="@+id/etSearchLocation"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Cari nama jalan atau tempat..."
+            android:textSize="14sp"
+            android:fontFamily="@font/outfit_regular"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:singleLine="true"
+            android:imeOptions="actionSearch" />
+
+        <ImageView
+            android:id="@+id/btnSearchLocation"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_search"
+            android:tint="#0056D2"
+            android:padding="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+    </LinearLayout>
+
     <!-- Bottom Container for dynamic states -->
     <FrameLayout
         android:id="@+id/bottomContainer"
