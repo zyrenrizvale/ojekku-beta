@@ -4,52 +4,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient">
+    android:background="#FFFFFF">
 
+    <!-- Wavy Blue Header -->
+    <ImageView
+        android:id="@+id/ivHeader"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:src="@drawable/bg_wave"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Back Button Icon -->
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:src="@android:drawable/ic_menu_revert"
+        android:tint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Welcome Back Text -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="80dp"
+        android:text="Welcome\nBack"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        android:fontFamily="@font/poppins_bold"
+        android:lineSpacingExtra="-8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Form Container -->
     <LinearLayout
         android:id="@+id/cardLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/bg_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-20dp"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:padding="32dp"
-        android:elevation="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="OjekKuy!"
-            android:textAlignment="center"
-            android:textColor="#001F54"
-            android:textSize="42sp"
-            android:fontFamily="@font/pacifico"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Silakan masuk untuk melanjutkan"
-            android:textAlignment="center"
-            android:textColor="#64748B"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
-            android:layout_marginBottom="32dp" />
-
+        <!-- Email Field -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:boxBackgroundColor="#F8FAFC"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxBackgroundColor="#00000000"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="1dp"
             app:boxStrokeColor="@color/primaryColor"
@@ -59,25 +68,23 @@
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="16dp"
                 android:hint="Email Address"
                 android:inputType="textEmailAddress"
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="#1E293B"
-                android:paddingTop="24dp"
+                android:paddingTop="20dp"
                 android:paddingBottom="16dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"/>
+                android:background="@drawable/bg_edittext" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Password Field -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            app:boxBackgroundColor="#F8FAFC"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:boxBackgroundColor="#00000000"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="1dp"
             app:boxStrokeColor="@color/primaryColor"
@@ -89,52 +96,78 @@
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawablePadding="16dp"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="#1E293B"
-                android:paddingTop="24dp"
+                android:paddingTop="20dp"
                 android:paddingBottom="16dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"/>
+                android:background="@drawable/bg_edittext"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot password?"
+            android:textColor="#0056D2"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_gravity="end"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- Login Button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="56dp"
             android:background="@drawable/bg_button"
-            android:text="Masuk Sekarang"
+            android:text="Login"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:fontFamily="@font/poppins_medium"
-            android:elevation="8dp" />
+            android:fontFamily="@font/poppins_medium" />
 
+        <!-- Sign Up Option -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal">
 
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"
+                android:background="#E2E8F0"/>
+            
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Belum punya akun? "
-                android:fontFamily="@font/poppins_regular"
-                android:textColor="#64748B"
-                android:textSize="14sp" />
+                android:text=" OR "
+                android:textColor="#94A3B8"
+                android:fontFamily="@font/poppins_regular"/>
 
-            <TextView
-                android:id="@+id/tvRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Daftar di sini"
-                android:textColor="#0A74DA"
-                android:fontFamily="@font/poppins_medium"
-                android:textSize="14sp" />
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"
+                android:background="#E2E8F0"/>
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tvRegister"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_edittext"
+            android:text="Sign up"
+            android:textAllCaps="false"
+            android:textColor="#0056D2"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
