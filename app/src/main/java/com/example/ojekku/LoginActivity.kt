@@ -20,6 +20,11 @@ class LoginActivity : AppCompatActivity() {
         val cardLogin = findViewById<LinearLayout>(R.id.cardLogin)
         val animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
         cardLogin.startAnimation(animSlideUp)
+        
+        val ivBack = findViewById<android.widget.ImageView>(R.id.ivBack)
+        ivBack.setOnClickListener {
+            finish() // Kembali ke halaman Welcome
+        }
 
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)

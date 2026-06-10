@@ -20,6 +20,11 @@ class RegisterActivity : AppCompatActivity() {
         val cardRegister = findViewById<LinearLayout>(R.id.cardRegister)
         val animSlideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
         cardRegister.startAnimation(animSlideUp)
+        
+        val ivBack = findViewById<android.widget.ImageView>(R.id.ivBack)
+        ivBack.setOnClickListener {
+            finish() // Kembali ke halaman Welcome
+        }
 
         val etName = findViewById<EditText>(R.id.etName)
         val etEmail = findViewById<EditText>(R.id.etEmail)

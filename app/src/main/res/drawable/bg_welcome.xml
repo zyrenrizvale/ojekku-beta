@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="800dp"
+    android:viewportWidth="360"
+    android:viewportHeight="800">
+    <!-- Solid Blue Base -->
+    <path
+        android:fillColor="#0056D2"
+        android:pathData="M0,0 h360 v800 h-360 z" />
+    
+    <!-- Darker Blue Blob Top -->
+    <path
+        android:fillColor="#0047B3"
+        android:pathData="M0,0 h360 v200 c-50,80 -150,20 -250,150 c-50,70 -110,30 -110,-50 z" />
+        
+    <!-- Darker Blue Blob Middle -->
+    <path
+        android:fillColor="#0047B3"
+        android:pathData="M360,200 c-80,20 -150,120 -80,250 c50,100 120,50 80,-250 z" />
+
+    <!-- Light Bubbles -->
+    <path android:fillColor="#1AFFFFFF" android:pathData="M300,100 a20,20 0 1,0 40,0 a20,20 0 1,0 -40,0" />
+    <path android:fillColor="#1AFFFFFF" android:pathData="M80,250 a30,30 0 1,0 60,0 a30,30 0 1,0 -60,0" />
+    <path android:fillColor="#1AFFFFFF" android:pathData="M250,380 a15,15 0 1,0 30,0 a15,15 0 1,0 -30,0" />
+</vector>

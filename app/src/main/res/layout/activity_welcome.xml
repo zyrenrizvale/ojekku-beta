@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0056D2">
+
+    <!-- Solid Blue with blobs -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_welcome"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="80dp"
+        android:text="OjekKuy!"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        android:fontFamily="@font/pacifico"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="8dp"
+        android:text="We deliver water at any point of the earth in 30 minutes"
+        android:textColor="#E2E8F0"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnWelcomeLogin"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_button_white"
+            android:text="Log in"
+            android:textAllCaps="false"
+            android:textColor="#0056D2"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginBottom="16dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnWelcomeRegister"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_button_outline"
+            android:text="Sign up"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
