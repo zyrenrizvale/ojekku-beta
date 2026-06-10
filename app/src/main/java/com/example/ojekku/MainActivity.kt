@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment, tag: String) {
         val existing = supportFragmentManager.findFragmentByTag(tag)
         val tx = supportFragmentManager.beginTransaction()
-        tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
         if (existing != null) {
             tx.replace(R.id.fragmentContainer, existing, tag)
         } else {
