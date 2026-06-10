@@ -31,19 +31,25 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val tvRegister = findViewById<TextView>(R.id.tvRegister)
 
-        // Tombol Login (Akan disambungkan ke Firebase nanti)
+        val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
+        
+        tvForgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Dummy Login Action -> Ke Dashboard
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                // Simulasi Login Sukses sementara
-                Toast.makeText(this, "Login Berhasil (Simulasi)", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                finish() // Tutup halaman login
+                finish() // Tutup login activity
             } else {
-                Toast.makeText(this, "Email dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Mohon isi email dan password", Toast.LENGTH_SHORT).show()
             }
         }
 
