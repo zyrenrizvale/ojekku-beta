@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navProfileIcon: ImageView
 
     private var currentTab = ""
+    private var activeFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         // Load tab awal
         if (savedInstanceState == null) {
-            loadFragment(HomeFragment(), "HOME")
+            loadFragment("HOME")
             setNavActive(0)
             currentTab = "HOME"
         }
@@ -46,38 +47,49 @@ class MainActivity : AppCompatActivity() {
         // Klik navigasi
         findViewById<LinearLayout>(R.id.navHome).setOnClickListener {
             if (currentTab != "HOME") {
-                loadFragment(HomeFragment(), "HOME")
+                loadFragment("HOME")
                 setNavActive(0)
                 currentTab = "HOME"
             }
         }
         findViewById<LinearLayout>(R.id.navActivity).setOnClickListener {
             if (currentTab != "HISTORY") {
-                loadFragment(HistoryFragment(), "HISTORY")
+                loadFragment("HISTORY")
                 setNavActive(1)
                 currentTab = "HISTORY"
             }
         }
         findViewById<LinearLayout>(R.id.navProfile).setOnClickListener {
             if (currentTab != "PROFILE") {
-                loadFragment(ProfileFragment(), "PROFILE")
+                loadFragment("PROFILE")
                 setNavActive(2)
                 currentTab = "PROFILE"
             }
         }
     }
 
-    private fun loadFragment(fragment: Fragment, tag: String) {
-        val existing = supportFragmentManager.findFragmentByTag(tag)
+    private fun loadFragment(tag: String) {
         val tx = supportFragmentManager.beginTransaction()
-        // Menggunakan animasi kustom yang sangat cepat (120ms)
-        tx.setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit)
-        if (existing != null) {
-            tx.replace(R.id.fragmentContainer, existing, tag)
-        } else {
-            tx.replace(R.id.fragmentContainer, fragment, tag)
+        var targetFragment = supportFragmentManager.findFragmentByTag(tag)
+
+        if (targetFragment == null) {
+            targetFragment = when (tag) {
+                "HOME" -> HomeFragment()
+                "HISTORY" -> HistoryFragment()
+                "PROFILE" -> ProfileFragment()
+                else -> HomeFragment()
+            }
+            tx.add(R.id.fragmentContainer, targetFragment, tag)
         }
+
+        if (activeFragment != null && activeFragment != targetFragment) {
+            tx.hide(activeFragment!!)
+        }
+
+        tx.show(targetFragment)
         tx.commit()
+        
+        activeFragment = targetFragment
     }
 
     private fun setNavActive(index: Int) {
