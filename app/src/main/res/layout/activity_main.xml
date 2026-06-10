@@ -17,13 +17,13 @@
             android:layout_height="wrap_content"
             android:paddingBottom="32dp">
 
-            <!-- Wavy Blue Background (reused for beautiful header) -->
+            <!-- Curved Blue Background -->
             <ImageView
                 android:id="@+id/vTopBg"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:src="@drawable/bg_wave"
-                android:scaleType="centerCrop"
+                android:src="@drawable/bg_curved"
+                android:scaleType="fitXY"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Top Bar -->
@@ -297,16 +297,21 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Floating Dark Navbar -->
     <LinearLayout
         android:id="@+id/navBar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="#FFFFFF"
+        android:layout_height="72dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_pill_dark"
         android:orientation="horizontal"
-        android:weightSum="3"
-        android:elevation="16dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:weightSum="4"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:id="@+id/navHome"
@@ -314,20 +319,31 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:orientation="vertical">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_compass"
-                android:tint="#0056D2" />
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
-                android:textSize="12sp"
-                android:textColor="#0056D2"
-                android:fontFamily="sans-serif-medium" />
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_pill_active"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_compass"
+                    android:tint="#60A5FA" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chats"
+                    android:textSize="10sp"
+                    android:textColor="#60A5FA"
+                    android:fontFamily="@font/outfit_bold" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -336,20 +352,44 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_menu_recent_history"
-                android:tint="#94A3B8" />
+                android:tint="#FFFFFF" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Activity"
-                android:textSize="12sp"
-                android:textColor="#94A3B8"
-                android:fontFamily="sans-serif-medium" />
+                android:text="Contacts"
+                android:textSize="10sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_manage"
+                android:tint="#FFFFFF" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="10sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginTop="4dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -358,20 +398,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_menu_myplaces"
-                android:tint="#94A3B8" />
+                android:tint="#FFFFFF" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
-                android:textSize="12sp"
-                android:textColor="#94A3B8"
-                android:fontFamily="sans-serif-medium" />
+                android:textSize="10sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginTop="4dp" />
         </LinearLayout>
     </LinearLayout>
 
